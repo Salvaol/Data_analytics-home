@@ -1,0 +1,20 @@
+#Exercise 6.4
+#a)
+car.df <- read.csv("ToyotaCorolla.csv")
+car.df <- read.csv("ToyotaCorolla.csv")
+selected.var <- c(3, 4, 7, 8, 9, 12, 14, 17, 19, 21, 25, 26, 28,30, 34, 39  )
+selected.var
+set.seed(1)
+train.rows <- sample(rownames(car.df), dim(car.df)[1]*0.5)
+valid.rows <- sample(setdiff(rownames(housing.df), train.rows), 
+                     dim(housing.df)[1]*0.3)
+valid.rows <- sample(setdiff(rownames(car.df), train.rows), 
+                     dim(car.df)[1]*0.3)
+test.rows <- setdiff(rownames(car.df), union(train.rows, valid.rows))
+train.data <- housing.df[train.rows,selected.var ]
+train.data <- car.df[train.rows,selected.var ]
+valid.data <- car.df[valid.rows, selected.var ]
+test.data <- car.df[test.rows, selected.var ]
+car.lm <- lm(Price ~ ., data = train.data)
+options(scipen = 999)
+summary(car.lm)
